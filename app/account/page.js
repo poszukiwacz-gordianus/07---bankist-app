@@ -1,19 +1,21 @@
 import { account1 } from "@/public/data";
 import ActionCard from "../_components/ActionCard";
 import MainHeader from "../_components/MainHeader";
+import Operations from "../_components/Operations";
 
 export default function Page() {
   const { movements, interestRate } = account1;
-  const m = movements.reduce((acc, mov) => acc + mov, 0);
+  const balance = movements.reduce((acc, mov) => acc + mov.amount, 0);
 
   return (
     <>
       <div className="px-4 py-6">
-        <MainHeader money={m} />
+        <MainHeader balance={balance} />
 
-        {/* <div>
+        <div className="py-10">
+          <Operations operations={movements} />
 
-          <div>
+          {/* <div>
             <ActionCard title="Transfer money" className="bg-yellow-600">
               <ActionCard.Input type="text" />
               <ActionCard.Label label="Transfer to" />
@@ -35,8 +37,8 @@ export default function Page() {
               <ActionCard.Label label="Confirm PIN" />
               <ActionCard.Button content="ok" />
             </ActionCard>
-          </div>
-        </div> */}
+          </div> */}
+        </div>
       </div>
 
       {/* <div>
