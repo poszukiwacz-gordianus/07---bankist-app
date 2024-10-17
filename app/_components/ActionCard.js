@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { HiOutlineArrowLongRight } from "react-icons/hi2";
 import useCloseOnOutsideInteraction from "../_hooks/useCloseOnOutsideInteraction";
+import Button from "./Button";
 
 function ActionCard({ children, title, className }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +15,7 @@ function ActionCard({ children, title, className }) {
       ref={ref}
     >
       <h4
-        className={`mb-3 ${isOpen || "-translate-y-3"} text-center text-2xl font-medium transition-all duration-500`}
+        className={`mb-3 ${isOpen || "-translate-y-2"} text-center text-xl font-medium transition-all duration-500`}
       >
         {title}
       </h4>
@@ -38,15 +38,11 @@ function Input({ type, label }) {
   );
 }
 
-function Button() {
-  return (
-    <button className="rounded-lg hover:bg-opacity-20 hover:text-white">
-      <HiOutlineArrowLongRight className="h-10 w-full" />
-    </button>
-  );
+function ActionButton() {
+  return <Button />;
 }
 
 ActionCard.Input = Input;
-ActionCard.Button = Button;
+ActionCard.ActionButton = ActionButton;
 
 export default ActionCard;

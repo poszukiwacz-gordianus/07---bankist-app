@@ -2,7 +2,7 @@ import { isToday } from "date-fns";
 
 export default function Operations({ operations }) {
   return (
-    <div className="mb-6 flex h-56 flex-col gap-1 overflow-scroll rounded-lg">
+    <div className="flex h-56 flex-col gap-1 overflow-scroll rounded-lg">
       {operations.map((operation, i) => {
         const withdrawal = String(operation.amount).includes("-");
         return (
