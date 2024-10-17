@@ -4,7 +4,7 @@ export default function MainHeader({ balance }) {
   return (
     <div className="flex items-center justify-between">
       <div>
-        <h3 className="text-xl">Current balance</h3>
+        <h3 className="text-2xl">Current balance</h3>
         <p className="text-xs text-stone-500">
           As of {today()}, {currentTime()}
         </p>
