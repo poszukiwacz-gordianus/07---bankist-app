@@ -5,16 +5,25 @@ import Actions from "../_components/Actions";
 import Footer from "../_components/Footer";
 import { useUser } from "../_context/UserContext";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Page() {
   const router = useRouter();
-  const { currentUser } = useUser();
+  const {
+    state: { currentUser },
+  } = useUser();
   const balance = currentUser?.movements?.reduce(
     (acc, mov) => acc + mov.amount,
     0,
   );
 
-  if (!currentUser) return router.push("/");
+  useEffect(() => {
+    if (!currentUser) {
+      router.push("/");
+    }
+  }, [currentUser, router]);
+
+  if (!currentUser) return null;
 
   return (
     <>

@@ -5,25 +5,19 @@ import { useRouter } from "next/navigation";
 import Button from "./Button";
 import Input from "./Input";
 import { HiArrowLongRight } from "react-icons/hi2";
-import { login } from "../_lib/auth";
 import { useUser } from "../_context/UserContext";
 
 export default function Login() {
   const [formData, setFormData] = useState({});
   const router = useRouter();
-  const { setCurrentUser } = useUser();
+  const { dispatch } = useUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const user = login(formData);
+    dispatch({ type: "login", payload: formData });
 
-    if (user) {
-      setCurrentUser(user);
-      router.push("/account");
-    } else {
-      console.log("Invalid login credentials");
-    }
+    router.push("/account");
   };
 
   return (

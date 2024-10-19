@@ -1,18 +1,23 @@
 import { createContext, useContext, useState } from "react";
 import useCloseOnOutsideInteraction from "../_hooks/useCloseOnOutsideInteraction";
 import Button from "./Button";
+import { useUser } from "../_context/UserContext";
 
 const ActionContext = createContext();
 
 function ActionCard({ children, title, type, className }) {
+  const { dispatch } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({});
   const ref = useCloseOnOutsideInteraction(() => setIsOpen(false));
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    // dispatch({ type: type, payload: formData });
+    if (type) {
+      dispatch({ type, payload: formData });
+    } else {
+      console.warn("No action type provided.");
+    }
   };
 
   const handleInputChange = (name, value) => {
@@ -26,7 +31,7 @@ function ActionCard({ children, title, type, className }) {
     <ActionContext.Provider value={{ handleInputChange }}>
       <div
         className={`${className} overflow-hidden rounded-lg p-6 transition-all duration-500 ease-in-out ${
-          isOpen ? "max-h-[500px]" : "max-h-[60px]"
+          isOpen ? "max-h-[500px]" : "max-h-[60px] hover:cursor-pointer"
         }`}
         onClick={() => setIsOpen(true)}
         ref={ref}

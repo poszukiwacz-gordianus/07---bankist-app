@@ -6,11 +6,11 @@ import { useUser } from "../_context/UserContext";
 import { useRouter } from "next/navigation";
 
 export default function Logout() {
-  const { setCurrentUser } = useUser();
+  const { dispatch } = useUser();
   const router = useRouter();
 
   const handleLogout = () => {
-    setCurrentUser(null);
+    dispatch({ type: "logout" });
     router.push("/");
   };
 

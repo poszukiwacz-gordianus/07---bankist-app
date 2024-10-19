@@ -4,7 +4,9 @@ import { formatMoney } from "../_lib/helpers";
 import TransactionItem from "./TransactionItem";
 
 export default function TransactionSummary() {
-  const { currentUser } = useUser();
+  const {
+    state: { currentUser },
+  } = useUser();
   const calculateTotal = (movements, condition) =>
     movements?.filter(condition).reduce((acc, m) => acc + m.amount, 0);
 
