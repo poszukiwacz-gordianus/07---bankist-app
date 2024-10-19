@@ -8,8 +8,7 @@ export default function AfterLogin({ user }) {
       <Logo />
       <div className="flex items-center">
         <h1 className="text-xl font-medium">
-          Good {partOfDay()} <br />
-          {user}
+          Good {partOfDay()}, {user.split(" ").at(0)}
         </h1>
         <Logout />
       </div>

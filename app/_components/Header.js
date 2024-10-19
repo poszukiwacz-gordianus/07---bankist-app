@@ -1,12 +1,13 @@
-import { account1 } from "@/public/data";
+"use client";
 import BeforeLogin from "./BeforeLogin";
 import AfterLogin from "./AfterLogin";
+import { useUser } from "../_context/UserContext";
 
 export default function Header() {
-  // const account = {};
-  const { owner } = account1;
-
+  const { currentUser } = useUser();
   return (
-    <header>{owner ? <AfterLogin user={owner} /> : <BeforeLogin />}</header>
+    <header>
+      {currentUser ? <AfterLogin user={currentUser.owner} /> : <BeforeLogin />}
+    </header>
   );
 }

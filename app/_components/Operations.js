@@ -1,9 +1,10 @@
 import { isToday } from "date-fns";
+import { formatMoney } from "../_lib/helpers";
 
 export default function Operations({ operations }) {
   return (
     <div className="flex h-56 flex-col gap-1 overflow-scroll rounded-lg">
-      {operations.map((operation, i) => {
+      {operations?.map((operation, i) => {
         const withdrawal = String(operation.amount).includes("-");
         return (
           <div className="flex items-center bg-white px-4 py-4 text-xl" key={i}>
@@ -15,7 +16,7 @@ export default function Operations({ operations }) {
             <p className="ml-4 text-sm uppercase">
               {isToday(new Date(operation.date)) ? "Today" : operation.date}
             </p>
-            <p className="ml-auto">{operation.amount} $</p>
+            <p className="ml-auto">{formatMoney(operation.amount)}</p>
           </div>
         );
       })}

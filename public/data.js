@@ -12,26 +12,28 @@ export const account1 = {
     { date: "10/17/2024", amount: 30 },
   ],
   interestRate: 1.2, // %
+  user: "js",
   pin: 1111,
 };
 
-export const account2 = {
+const account2 = {
   owner: "Jessica Davis",
   movements: [
-    { date: "01/10/2024", amount: 5000 },
-    { date: "02/10/2024", amount: 3400 },
-    { date: "03/10/2024", amount: -150 },
-    { date: "04/10/2024", amount: -790 },
-    { date: "05/10/2024", amount: -3210 },
+    { date: "01/10/2024", amount: 200 },
+    { date: "02/10/2024", amount: 1000 },
+    { date: "03/10/2024", amount: -1500 },
+    { date: "04/10/2024", amount: -90 },
+    { date: "05/10/2024", amount: 210 },
     { date: "06/10/2024", amount: -1000 },
-    { date: "07/10/2024", amount: 8500 },
-    { date: "08/10/2024", amount: -30 },
+    { date: "07/10/2024", amount: 500 },
+    { date: "08/10/2024", amount: -300 },
   ],
   interestRate: 1.5,
+  user: "jd",
   pin: 2222,
 };
 
-export const account3 = {
+const account3 = {
   owner: "Steven Thomas Williams",
   movements: [
     { date: "01/10/2024", amount: 200 },
@@ -47,7 +49,7 @@ export const account3 = {
   pin: 3333,
 };
 
-export const account4 = {
+const account4 = {
   owner: "Sarah Smith",
   movements: [
     { date: "01/10/2024", amount: 430 },
@@ -59,3 +61,5 @@ export const account4 = {
   interestRate: 1,
   pin: 4444,
 };
+
+export const accounts = [account1, account2, account3, account4];

@@ -6,19 +6,26 @@ export function today() {
 }
 
 export function currentTime() {
-  return `${currentDate.getHours()}:${currentDate.getMinutes()}`;
+  const hour = String(currentDate.getHours()).padStart(2, "0");
+  const min = String(currentDate.getMinutes()).padStart(2, "0");
+  return `${hour}:${min}`;
 }
 
 export function partOfDay() {
   const currentHour = currentDate.getHours();
-  const partOfDay =
-    currentHour >= 20
-      ? "evening"
-      : currentHour >= 12
-        ? "afternoon"
-        : currentHour <= 11 && currentHour >= 4
-          ? "morning"
-          : "night";
 
-  return partOfDay;
+  if (currentHour >= 4 && currentHour <= 8) return "morning";
+  if (currentHour >= 9 && currentHour <= 14) return "day";
+  if (currentHour >= 15 && currentHour <= 17) return "afternoon";
+  if (currentHour >= 18 && currentHour <= 21) return "evening";
+  return "night";
+}
+
+export function formatMoney(number) {
+  return (
+    new Intl.NumberFormat("fr-FR", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2,
+    }).format(number) + " $"
+  );
 }
