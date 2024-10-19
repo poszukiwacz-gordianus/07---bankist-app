@@ -29,3 +29,45 @@ export function formatMoney(number) {
     }).format(number) + " $"
   );
 }
+
+export const validateFormData = (actionType, data, userState) => {
+  switch (actionType) {
+    case "loan":
+      if (!data.amount || Number(data.amount) <= 0) {
+        return "Loan amount must be greater than 0.";
+      }
+      break;
+
+    case "transfer":
+      const balance = userState.currentUser?.movements?.reduce(
+        (acc, mov) => acc + mov.amount,
+        0,
+      );
+      if (!data.amount || Number(data.amount) <= 0) {
+        return "Transfer amount must be greater than 0.";
+      }
+      if (Number(data.amount) > balance) {
+        return "Insufficient balance.";
+      }
+      const recipient = userState.accounts.find(
+        (account) => account.user === data.recipientUser,
+      );
+      if (!recipient) {
+        return "Recipient does not exist.";
+      }
+      break;
+
+    case "closeAccount":
+      if (
+        data.pin !== userState.currentUser.pin &&
+        data.user !== userState.currentUser.user
+      ) {
+        return "Incorrect information. Please try again.";
+      }
+      break;
+
+    default:
+      return null;
+  }
+  return null;
+};

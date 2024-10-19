@@ -10,14 +10,18 @@ export default function Actions() {
         className="bg-yellow-400"
         type="transfer"
       >
-        <ActionCard.Input type="text" label="Transfer to" name="transfer" />
+        <ActionCard.Input
+          type="text"
+          label="Transfer to"
+          name="recipientUser"
+        />
         <ActionCard.Input type="number" label="Amount" name="amount" />
-        <ActionCard.ActionButton />
+        <ActionCard.Button />
       </ActionCard>
 
       <ActionCard title="Request loan" className="bg-green-600" type="loan">
         <ActionCard.Input type="number" label="Amount" name="amount" />
-        <ActionCard.ActionButton />
+        <ActionCard.Button />
       </ActionCard>
 
       <ActionCard
@@ -27,7 +31,7 @@ export default function Actions() {
       >
         <ActionCard.Input type="text" label="Confirm user" name="user" />
         <ActionCard.Input type="text" label="Confirm PIN" name="pin" />
-        <ActionCard.ActionButton />
+        <ActionCard.Button />
       </ActionCard>
     </div>
   );

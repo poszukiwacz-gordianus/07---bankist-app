@@ -100,14 +100,14 @@ function reducer(state, action) {
     case "transfer":
       const amount = Number(action.payload.amount);
       const x = state.accounts.filter(
-        (account) => account.user != action.payload.transfer,
+        (account) => account.user != action.payload.recipientUser,
       );
       const y = state.accounts.find(
-        (account) => account.user === action.payload.transfer,
+        (account) => account.user === action.payload.recipientUser,
       );
       const transfer = {
         ...y,
-        movements: [{ date: new Date(), amount }, ...y.movements],
+        movements: [{ date: new Date(), amount }, ...y?.movements],
       };
 
       return {
