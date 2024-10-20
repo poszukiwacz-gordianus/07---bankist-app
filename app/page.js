@@ -1,6 +1,6 @@
 export default function Page() {
   return (
-    <section className="px-12 py-6">
+    <section className="mx-auto max-w-screen-sm px-12 py-6">
       <h1 className="mb-12 text-2xl">Welcome to Bankist App!</h1>
       <div className="flex flex-col gap-4 text-xl">
         <p>

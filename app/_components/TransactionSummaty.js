@@ -20,7 +20,7 @@ export default function TransactionSummary() {
   const interest = (depositTotal * currentUser?.interestRate) / 100;
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 md:flex-row">
       <h5 className="text-2xl">Transactions Summary</h5>
       <TransactionItem text="in" balance={formatMoney(depositTotal)} />
       <TransactionItem

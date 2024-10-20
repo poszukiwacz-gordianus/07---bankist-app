@@ -53,23 +53,28 @@ function ActionCard({ children, title, type, className }) {
       value={{ error, handleInputChange, shouldReset, resetInputs }}
     >
       <div
-        className={`${className} overflow-hidden rounded-lg p-6 transition-all duration-500 ease-in-out ${
-          isOpen ? "max-h-[500px]" : "max-h-[60px] hover:cursor-pointer"
-        }`}
+        className={`${className} overflow-hidden rounded-lg p-6 shadow-md transition-all duration-500 ease-in-out lg:px-10 lg:py-6 ${
+          isOpen
+            ? "max-h-[500px]"
+            : "max-h-[60px] hover:cursor-pointer md:hover:cursor-auto"
+        } md:max-h-[500px]`}
         onClick={() => setIsOpen(true)}
         ref={ref}
       >
         <h4
-          className={`mb-3 ${isOpen || "-translate-y-2"} text-center text-xl font-medium transition-all duration-500`}
+          className={`mb-3 ${isOpen || "-translate-y-2"} text-center text-base font-medium transition-all duration-500 sm:text-base md:-translate-y-0 md:text-left lg:mb-4`}
         >
           {title}
         </h4>
         <p
-          className={`${error === "" ? "hidden" : "block"} text-center text-base font-bold text-stone-950`}
+          className={`${error === "" ? "hidden" : "block"} mb-2 text-center text-base font-bold text-stone-950`}
         >
           {error}
         </p>
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form
+          className="flex flex-col gap-2 lg:flex-row"
+          onSubmit={handleSubmit}
+        >
           {children}
         </form>
       </div>
@@ -98,22 +103,29 @@ function Input({ type, label, name }) {
 
   return (
     <div>
-      <label className="hidden text-lg">{label}</label>
       <input
         type={type}
         value={inputValue}
-        className="w-full appearance-none rounded-lg px-4 py-2 text-lg"
+        className="w-full appearance-none rounded-lg px-4 py-1 text-base lg:w-36"
         placeholder={label}
         onWheel={(e) => e.target.blur()}
         onChange={handleChange}
         required
       />
+      <label className="hidden py-2 text-center text-sm lg:block">
+        {label}
+      </label>
     </div>
   );
 }
 
 function ActionButton() {
-  return <Button type="submit" />;
+  return (
+    <Button
+      type="submit"
+      className="md:self-end lg:self-start lg:rounded-lg lg:bg-white lg:px-1 lg:py-[0.38rem]"
+    />
+  );
 }
 
 ActionCard.Input = Input;

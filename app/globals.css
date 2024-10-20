@@ -14,4 +14,37 @@
   input[type="number"] {
     @apply appearance-none;
   }
+
+  /* Hide horizontal scrollbar */
+  .hide-scrollbar-x {
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    overflow-y: auto; /* Show vertical scrollbar */
+  }
+
+  /* Additional styles if you still want to hide the scrollbar on other browsers */
+  .hide-scrollbar-x::-webkit-scrollbar:horizontal {
+    display: none; /* Hide horizontal scrollbar in WebKit browsers */
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  /* https://dev.to/afif/i-made-100-css-loaders-for-your-next-project-4eje */
+  .loader {
+    width: 45px;
+    aspect-ratio: 0.75;
+    --c: no-repeat linear-gradient(theme(colors.stone.800) 0 0);
+    background:
+      var(--c) 0% 50%,
+      var(--c) 50% 50%,
+      var(--c) 100% 50%;
+    background-size: 20% 50%;
+    animation: loading 1s infinite linear;
+  }
 }

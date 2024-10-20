@@ -15,7 +15,7 @@ export default function Logout() {
   };
 
   return (
-    <Button className="ml-auto" onClick={handleLogout}>
+    <Button className="ml-auto sm:ml-0" onClick={handleLogout}>
       <HiOutlineArrowLongLeft className="text-4xl" />
     </Button>
   );

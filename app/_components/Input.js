@@ -19,7 +19,7 @@ export default function Input({ name, onData, placeholder }) {
       value={input}
       onChange={handleChange}
       name={name}
-      className="rounded-full bg-white py-3 text-center"
+      className="rounded-full bg-white py-3 text-center sm:w-20 sm:py-1 sm:text-sm"
     />
   );
 }

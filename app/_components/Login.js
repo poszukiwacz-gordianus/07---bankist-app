@@ -21,7 +21,10 @@ export default function Login() {
   };
 
   return (
-    <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col gap-2 sm:ml-auto sm:flex-row sm:gap-1"
+      onSubmit={handleSubmit}
+    >
       <Input placeholder="user" name="user" onData={setFormData} />
       <Input placeholder="PIN" name="pin" onData={setFormData} />
       <Button type="submit" className="self-center">

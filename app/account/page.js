@@ -6,6 +6,7 @@ import Footer from "../_components/Footer";
 import { useUser } from "../_context/UserContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Button from "../_components/Button";
 
 export default function Page() {
   const router = useRouter();
@@ -27,11 +28,12 @@ export default function Page() {
 
   return (
     <>
-      <div className="flex flex-col gap-6 px-4 py-4">
+      <div className="flex flex-col gap-6 p-4 md:grid md:grid-cols-[1.5fr_1fr] lg:mx-auto lg:max-w-screen-lg lg:grid-cols-[1.25fr_0.75fr] lg:gap-x-5 lg:gap-y-10 lg:px-10 lg:py-8">
         <MainHeader balance={balance} />
 
-        <div className="py-4">
+        <div className="py-4 md:py-0">
           <Operations operations={currentUser?.movements} />
+          <Button className="pt-3">Sort</Button>
         </div>
 
         <Actions />

@@ -4,7 +4,7 @@ import ActionCard from "./ActionCard";
 
 export default function Actions() {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 md:gap-4">
       <ActionCard
         title="Transfer money"
         className="bg-yellow-400"
