@@ -5,14 +5,18 @@ import Actions from "../_components/Actions";
 import Footer from "../_components/Footer";
 import { useUser } from "../_context/UserContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Button from "../_components/Button";
+import Sort from "../_components/Sort";
 
 export default function Page() {
   const router = useRouter();
   const {
     state: { currentUser },
   } = useUser();
+  let [sortMovements, setSortMovements] = useState(
+    currentUser?.movements ? [...currentUser.movements] : [],
+  );
   const balance = currentUser?.movements?.reduce(
     (acc, mov) => acc + mov.amount,
     0,
@@ -32,8 +36,8 @@ export default function Page() {
         <MainHeader balance={balance} />
 
         <div className="py-4 md:py-0">
-          <Operations operations={currentUser?.movements} />
-          <Button className="pt-3">Sort</Button>
+          <Operations operations={sortMovements} />
+          <Sort arr={sortMovements} onSet={setSortMovements} />
         </div>
 
         <Actions />

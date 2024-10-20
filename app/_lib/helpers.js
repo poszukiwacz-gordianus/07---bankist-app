@@ -71,3 +71,5 @@ export const validateFormData = (actionType, data, userState) => {
   }
   return null;
 };
+
+export const sortedArray = (arr, method) => [...arr].sort(method);
