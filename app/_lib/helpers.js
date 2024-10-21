@@ -119,7 +119,14 @@ export const formatTime = (time) => {
 
 export const generateDateFromToday = (daysOffset) => {
   const date = new Date();
+
+  // For 'today', 'yesterday', '2 days ago'
   if (daysOffset > -3) date.setDate(date.getDate() + daysOffset);
-  else date.setDate(date.getDate() + daysOffset * 20);
+  // For dates further back
+  else
+    date.setDate(
+      date.getDate() + daysOffset * Math.floor(Math.random() * 100) + 20,
+    );
+
   return date;
 };
