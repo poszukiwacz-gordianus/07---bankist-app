@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Button from "../UIComponents/Button";
-import Input from "../UIComponents/Input";
-import { HiArrowLongRight } from "react-icons/hi2";
+import { Button, Input } from "../Components";
 import { useUserAccount } from "../../_context/UserAccountContext";
-import { validateFormData } from "../../_lib/helpers";
+import { validateFormData } from "@/app/_lib/helpers";
+import { HiArrowLongRight } from "react-icons/hi2";
 
 export default function Login() {
   const [formData, setFormData] = useState({});

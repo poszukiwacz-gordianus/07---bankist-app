@@ -1,6 +1,6 @@
 import TransactionItem from "./TransactionItem";
-import { useUserAccount } from "../../_context/UserAccountContext";
-import { formatCurrency } from "../../_lib/helpers";
+import { useUserAccount } from "@/app/_context/UserAccountContext";
+import { formatCurrency } from "@/app/_lib/helpers";
 
 export default function TransactionSummary() {
   const {

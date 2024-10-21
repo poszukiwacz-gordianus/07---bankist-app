@@ -14,19 +14,6 @@ export default function Account({ currentUser }) {
       items: sortMovements(sortOrder, movements),
     };
   }, [currentUser, sortOrder]);
-  // const [sortedData, setSortedData] = useState({
-  //   sortOrder: "dateDesc",
-  //   items: [],
-  // });
-
-  // useEffect(() => {
-  //   const movements = currentUser?.movements || [];
-
-  //   setSortedData({
-  //     sortOrder: "dateDesc",
-  //     items: sortMovements("dateDesc", movements),
-  //   });
-  // }, [currentUser]);
 
   const handleSort = (e) =>
     e.target.value !== sortOrder && setSortOrder(e.target.value);

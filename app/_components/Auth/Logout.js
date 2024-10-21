@@ -1,9 +1,9 @@
 "use client";
 
-import { HiOutlineArrowLongLeft } from "react-icons/hi2";
-import Button from "../UIComponents/Button";
-import { useUserAccount } from "../../_context/UserAccountContext";
 import { useRouter } from "next/navigation";
+import { Button } from "../Components";
+import { useUserAccount } from "../../_context/UserAccountContext";
+import { HiOutlineArrowLongLeft } from "react-icons/hi2";
 
 export default function Logout() {
   const { dispatch } = useUserAccount();
