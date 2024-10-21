@@ -1,18 +1,28 @@
-import { format } from "date-fns";
-const currentDate = new Date();
+const today = new Date();
 
-export function today() {
-  return format(currentDate, "P");
+export function currentDate(locale) {
+  const options = {
+    hour: "numeric",
+    minute: "numeric",
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+  };
+  return new Intl.DateTimeFormat(locale, options).format(today);
 }
 
-export function currentTime() {
-  const hour = String(currentDate.getHours()).padStart(2, "0");
-  const min = String(currentDate.getMinutes()).padStart(2, "0");
-  return `${hour}:${min}`;
+export function formatDate(date, locale) {
+  const daysPassed = Math.round(Math.abs(date - today) / (1000 * 60 * 60 * 24));
+
+  if (daysPassed === 0) return "Today";
+  if (daysPassed === 1) return "Yesterday";
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+
+  return new Intl.DateTimeFormat(locale).format(new Date(date));
 }
 
 export function partOfDay() {
-  const currentHour = currentDate.getHours();
+  const currentHour = today.getHours();
 
   if (currentHour >= 4 && currentHour <= 8) return "morning";
   if (currentHour >= 9 && currentHour <= 14) return "day";
@@ -21,11 +31,11 @@ export function partOfDay() {
   return "night";
 }
 
-export function formatMoney(number) {
-  return new Intl.NumberFormat("fr-FR", {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
-  }).format(number);
+export function formatCurrency(value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency,
+  }).format(value);
 }
 
 export const validateFormData = (actionType, data, userState) => {
@@ -79,7 +89,27 @@ export const validateFormData = (actionType, data, userState) => {
   return null;
 };
 
-export const sortedArray = (arr, method) => [...arr].sort(method);
+export const sortArray = (arr, method) => [...arr].sort(method);
+
+export const sortMovements = (type, movements) => {
+  switch (type) {
+    case "asc":
+      return sortArray(movements, (a, b) => a.amount - b.amount);
+    case "desc":
+      return sortArray(movements, (a, b) => b.amount - a.amount);
+    case "dateAsc":
+      return sortArray(
+        movements,
+        (a, b) => new Date(a.date) - new Date(b.date),
+      );
+    case "dateDesc":
+    default:
+      return sortArray(
+        movements,
+        (a, b) => new Date(b.date) - new Date(a.date),
+      );
+  }
+};
 
 export const formatTime = (time) => {
   const minutes = String(Math.floor(time / 60)).padStart(2, "0");
