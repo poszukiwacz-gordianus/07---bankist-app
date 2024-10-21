@@ -8,6 +8,7 @@ export default function Page() {
           <a
             href="https://www.udemy.com/user/jonasschmedtmann/"
             target="_blank"
+            rel="noopener noreferrer"
             className="text-blue-600 underline"
           >
             Jonas Schmedtmann&apos;s
@@ -15,6 +16,7 @@ export default function Page() {
           <a
             href="https://bankist.netlify.app/"
             target="_blank"
+            rel="noopener noreferrer"
             className="text-blue-600 underline"
           >
             Bankist App
@@ -23,24 +25,38 @@ export default function Page() {
           <a
             href="https://www.udemy.com/course/the-complete-javascript-course/"
             target="_blank"
+            rel="noopener noreferrer"
             className="text-blue-600 underline"
           >
             The Complete JavaScript Course
           </a>
-          , written from scratch using Next.js and Tailwind CSS.
+          , rebuilt from scratch using Next.js and Tailwind CSS.
         </p>
 
         <h2>The app features two accounts:</h2>
-        <ul>
-          <li>User: gtf, Pin: 1111</li>
-          <li> User: jd, Pin: 2222</li>
+        <ul className="list-inside list-disc">
+          <li>
+            User: <strong>gtf</strong>, Pin: <strong>1111</strong>
+          </li>
+          <li>
+            User: <strong>jd</strong>, Pin: <strong>2222</strong>
+          </li>
         </ul>
         <p>
           You can login to the app and perform various operations, including
           transferring money between accounts, sorting operations by date, and
           more.
         </p>
-        <p>Website includes 📱 Responsive Design 😁</p>
+        <p>
+          Website includes{" "}
+          <span role="img" aria-label="phone">
+            📱
+          </span>{" "}
+          Fully Responsive Design{" "}
+          <span role="img" aria-label="smile">
+            😁
+          </span>
+        </p>
       </div>
     </section>
   );

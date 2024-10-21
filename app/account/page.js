@@ -1,28 +1,17 @@
 "use client";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import Account from "../_components/Account";
-import Footer from "../_components/Footer";
-import { useUser } from "../_context/UserContext";
+
+import { Account, AccountFooter } from "../_components/Components";
+import useAuthRedirect from "../_hooks/useAuthRedirect";
 
 export default function Page() {
-  const router = useRouter();
-  const {
-    state: { currentUser },
-  } = useUser();
-
-  useEffect(() => {
-    if (!currentUser) {
-      router.push("/");
-    }
-  }, [currentUser, router]);
+  const currentUser = useAuthRedirect();
 
   if (!currentUser) return null;
 
   return (
     <>
       <Account currentUser={currentUser} />
-      <Footer />
+      <AccountFooter />
     </>
   );
 }

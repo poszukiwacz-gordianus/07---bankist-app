@@ -1,7 +1,7 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Header from "./_components/Header";
-import { UserProvider } from "./_context/UserContext";
+import { Header } from "./_components/Components";
+import { UserProvider } from "./_context/UserAccountContext";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -13,6 +13,9 @@ export const metadata = {
   title: "Bankist App",
   description:
     "Project from The Complete Javascript Course by Jonas Schmedtmann, build with Next.js and Tailwind Css",
+  keywords:
+    "Banking, Finance, JavaScript, Next.js, Tailwind CSS, Learning Project",
+  author: "Gord The Finder, Jonas Schmedtmann",
 };
 
 export default function RootLayout({ children }) {
@@ -22,7 +25,7 @@ export default function RootLayout({ children }) {
         <UserProvider>
           <Header />
 
-          <main>{children}</main>
+          <main role="main">{children}</main>
         </UserProvider>
       </body>
     </html>

@@ -1,8 +1,8 @@
 "use client";
 import { createContext, useContext, useReducer } from "react";
-import { generateDateFromToday } from "../_lib/helpers";
+import { generateRelativeDate } from "../_lib/helpers";
 
-const UserContext = createContext();
+const UserAccountContext = createContext();
 const SESSION_COUNTER = 10 * 60;
 const initialState = {
   accounts: [
@@ -26,7 +26,7 @@ const initialState = {
     },
   ],
   currentUser: null,
-  balance() {
+  calculateBalances() {
     return this.accounts.map(
       (account) =>
         (account.balance = account.movements.reduce(
@@ -35,19 +35,19 @@ const initialState = {
         )),
     );
   },
-  createDates() {
+  generateMovementDates() {
     return this.accounts.map(
       (account) =>
         (account.movements = account.movements.map((mov, i) => ({
-          date: generateDateFromToday(-i),
+          date: generateRelativeDate(-i),
           amount: mov,
         }))),
     );
   },
   sessionCounter: SESSION_COUNTER,
 };
-initialState.balance();
-initialState.createDates();
+initialState.calculateBalances();
+initialState.generateMovementDates();
 
 function reducer(state, action) {
   switch (action.type) {
@@ -67,49 +67,55 @@ function reducer(state, action) {
         accounts: [...accounts, state.currentUser],
         currentUser: null,
       };
-    case "loan":
+    case "addLoanMovement":
+      const loanAmount = Math.floor(action.payload.amount);
       return {
         ...state,
         sessionCounter: SESSION_COUNTER,
         currentUser: {
           ...state.currentUser,
+          balance: state.currentUser.balance + loanAmount,
           movements: [
             {
               date: new Date(),
-              amount: Math.floor(action.payload.amount),
+              amount: loanAmount,
             },
             ...state.currentUser.movements,
           ],
         },
       };
 
-    case "transfer":
-      const amount = +action.payload.amount;
-      const x = state.accounts.filter(
+    case "addTransferMovement":
+      const transferAmount = +action.payload.amount;
+      const otherAccounts = state.accounts.filter(
         (account) => account.user != action.payload.recipientUser,
       );
-      const y = state.accounts.find(
+      const recipientAccount = state.accounts.find(
         (account) => account.user === action.payload.recipientUser,
       );
-      const transfer = {
-        ...y,
-        movements: [{ date: new Date(), amount }, ...y?.movements],
+      const updatedRecipientAccount = {
+        ...recipientAccount,
+        movements: [
+          { date: new Date(), transferAmount },
+          ...recipientAccount.movements,
+        ],
       };
 
       return {
         ...state,
         sessionCounter: SESSION_COUNTER,
-        accounts: [...x, transfer],
+        accounts: [...otherAccounts, updatedRecipientAccount],
         currentUser: {
           ...state.currentUser,
+          balance: state.currentUser.balance - transferAmount,
           movements: [
-            { date: new Date(), amount: -amount },
+            { date: new Date(), amount: -transferAmount },
             ...state.currentUser.movements,
           ],
         },
       };
 
-    case "closeAccount":
+    case "removeAccount":
       const data = state.accounts.filter(
         (account) =>
           account.user !== action.payload.user &&
@@ -131,17 +137,19 @@ function UserProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <UserContext.Provider value={{ state, dispatch }}>
+    <UserAccountContext.Provider value={{ state, dispatch }}>
       {children}
-    </UserContext.Provider>
+    </UserAccountContext.Provider>
   );
 }
 
-function useUser() {
-  const context = useContext(UserContext);
+function useUserAccount() {
+  const context = useContext(UserAccountContext);
   if (context === undefined)
-    throw new Error("UserContext was used outside of UserContextProvider");
+    throw new Error(
+      "UserAccountContext was used outside of UserAccountContextProvider",
+    );
   return context;
 }
 
-export { UserProvider, useUser };
+export { UserProvider, useUserAccount };

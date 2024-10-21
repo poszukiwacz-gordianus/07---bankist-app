@@ -1,5 +1,5 @@
 import Login from "./Login";
-import Logo from "./Logo";
+import Logo from "../UIComponents/Logo";
 
 export default function BeforeLogin() {
   return (

@@ -1,12 +1,12 @@
 "use client";
 
 import { HiOutlineArrowLongLeft } from "react-icons/hi2";
-import Button from "./Button";
-import { useUser } from "../_context/UserContext";
+import Button from "../UIComponents/Button";
+import { useUserAccount } from "../../_context/UserAccountContext";
 import { useRouter } from "next/navigation";
 
 export default function Logout() {
-  const { dispatch } = useUser();
+  const { dispatch } = useUserAccount();
   const router = useRouter();
 
   const handleLogout = () => {

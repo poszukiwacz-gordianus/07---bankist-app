@@ -1,12 +1,12 @@
 "use client";
-import BeforeLogin from "./BeforeLogin";
-import AfterLogin from "./AfterLogin";
-import { useUser } from "../_context/UserContext";
+import BeforeLogin from "../Auth/BeforeLogin";
+import AfterLogin from "../Auth/AfterLogin";
+import { useUserAccount } from "../../_context/UserAccountContext";
 
 export default function Header() {
   const {
     state: { currentUser },
-  } = useUser();
+  } = useUserAccount();
   return (
     <header>
       {currentUser ? <AfterLogin user={currentUser.owner} /> : <BeforeLogin />}

@@ -1,5 +1,5 @@
-import { partOfDay } from "../_lib/helpers";
-import Logo from "./Logo";
+import { partOfDay } from "../../_lib/helpers";
+import Logo from "../UIComponents/Logo";
 import Logout from "./Logout";
 
 export default function AfterLogin({ user }) {

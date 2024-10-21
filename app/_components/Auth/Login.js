@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Button from "./Button";
-import Input from "./Input";
+import Button from "../UIComponents/Button";
+import Input from "../UIComponents/Input";
 import { HiArrowLongRight } from "react-icons/hi2";
-import { useUser } from "../_context/UserContext";
-import { validateFormData } from "../_lib/helpers";
+import { useUserAccount } from "../../_context/UserAccountContext";
+import { validateFormData } from "../../_lib/helpers";
 
 export default function Login() {
   const [formData, setFormData] = useState({});
@@ -16,7 +16,7 @@ export default function Login() {
   const {
     state: { accounts },
     dispatch,
-  } = useUser();
+  } = useUserAccount();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,11 +26,10 @@ export default function Login() {
     if (!validationError) {
       dispatch({ type: "login", payload: formData });
       setError("");
+      router.push("/account");
     } else {
       setError(validationError);
     }
-
-    router.push("/account");
   };
 
   return (

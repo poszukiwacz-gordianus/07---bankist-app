@@ -1,13 +1,15 @@
+"use client";
+
 import { createContext, useContext, useEffect, useState } from "react";
-import useCloseOnOutsideInteraction from "../_hooks/useCloseOnOutsideInteraction";
-import Button from "./Button";
-import { useUser } from "../_context/UserContext";
-import { validateFormData } from "../_lib/helpers";
+import { Button } from "../Components";
+import { useUserAccount } from "../../_context/UserAccountContext";
+import { validateFormData } from "../../_lib/helpers";
+import useCloseOnOutsideInteraction from "../../_hooks/useCloseOnOutsideInteraction";
 
 const ActionContext = createContext();
 
-function ActionCard({ children, title, type, className }) {
-  const { state, dispatch } = useUser();
+function ActionCard({ children, title, type, className, ariaLabel }) {
+  const { state, dispatch } = useUserAccount();
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({});
   const [error, setError] = useState("");
@@ -33,10 +35,9 @@ function ActionCard({ children, title, type, className }) {
 
     if (!validationError) {
       setIsLoading(true);
-      const intervalID = setInterval(() => {
+      setTimeout(() => {
         dispatch({ type, payload: formData });
         reset();
-        clearInterval(intervalID);
       }, 2000);
     } else {
       setError(validationError);
@@ -56,7 +57,14 @@ function ActionCard({ children, title, type, className }) {
 
   return (
     <ActionContext.Provider
-      value={{ isLoading, error, handleInputChange, shouldReset, resetInputs }}
+      value={{
+        isLoading,
+        error,
+        handleInputChange,
+        shouldReset,
+        resetInputs,
+        ariaLabel,
+      }}
     >
       <div
         className={`${className} overflow-hidden rounded-lg p-6 shadow-md transition-all duration-500 ease-in-out lg:px-10 lg:py-6 ${
@@ -66,17 +74,18 @@ function ActionCard({ children, title, type, className }) {
         } md:max-h-[500px]`}
         onClick={() => setIsOpen(true)}
         ref={ref}
+        aria-expanded={isOpen}
       >
         <h4
           className={`mb-3 ${isOpen || "-translate-y-1"} text-center text-base font-medium transition-all duration-500 sm:text-base md:-translate-y-0 md:text-left lg:mb-4`}
         >
           {title}
         </h4>
-        <p
-          className={`${error === "" ? "hidden" : "block"} mb-2 text-center text-base font-bold text-stone-950`}
-        >
-          {error}
-        </p>
+        {error && (
+          <p className="mb-2 text-center text-base font-bold text-stone-950">
+            {error}
+          </p>
+        )}
         <form
           className="flex flex-col gap-2 lg:flex-row"
           onSubmit={handleSubmit}
@@ -90,7 +99,7 @@ function ActionCard({ children, title, type, className }) {
 
 function Input({ type, label, name }) {
   const [inputValue, setInputValue] = useState("");
-  const { handleInputChange, shouldReset, resetInputs, isLoading } =
+  const { handleInputChange, shouldReset, resetInputs, isLoading, ariaLabel } =
     useContext(ActionContext);
 
   const handleChange = (e) => {
@@ -117,6 +126,7 @@ function Input({ type, label, name }) {
         onWheel={(e) => e.target.blur()}
         onChange={handleChange}
         disabled={isLoading}
+        aria-label={ariaLabel}
         required
       />
       <label className="hidden py-2 text-center text-sm lg:block">
