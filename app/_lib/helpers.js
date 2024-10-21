@@ -16,7 +16,7 @@ export function formatDate(date, locale) {
 
   if (daysPassed === 0) return "Today";
   if (daysPassed === 1) return "Yesterday";
-  if (daysPassed <= 7) return `${daysPassed} days ago`;
+  if (daysPassed <= 3) return `${daysPassed} days ago`;
 
   return new Intl.DateTimeFormat(locale).format(new Date(date));
 }
@@ -115,4 +115,11 @@ export const formatTime = (time) => {
   const minutes = String(Math.floor(time / 60)).padStart(2, "0");
   const seconds = String(time % 60).padStart(2, "0");
   return `${minutes}:${seconds}`;
+};
+
+export const generateDateFromToday = (daysOffset) => {
+  const date = new Date();
+  if (daysOffset > -3) date.setDate(date.getDate() + daysOffset);
+  else date.setDate(date.getDate() + daysOffset * 20);
+  return date;
 };
