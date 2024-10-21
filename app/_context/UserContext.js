@@ -62,7 +62,7 @@ function reducer(state, action) {
       const currentUser = state.accounts.find(
         (account) =>
           account.user === action.payload.user &&
-          account.pin === Number(action.payload.pin),
+          account.pin === +action.payload.pin,
       );
       return { ...state, currentUser };
     case "logout":
@@ -81,14 +81,17 @@ function reducer(state, action) {
         currentUser: {
           ...state.currentUser,
           movements: [
-            { date: new Date(), amount: Math.floor(action.payload.amount) },
+            {
+              date: new Date(),
+              amount: Math.floor(action.payload.amount),
+            },
             ...state.currentUser.movements,
           ],
         },
       };
 
     case "transfer":
-      const amount = Number(action.payload.amount);
+      const amount = +action.payload.amount;
       const x = state.accounts.filter(
         (account) => account.user != action.payload.recipientUser,
       );

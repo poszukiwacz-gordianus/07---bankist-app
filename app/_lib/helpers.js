@@ -76,7 +76,7 @@ export const validateFormData = (actionType, data, userState) => {
 
     case "closeAccount":
       if (
-        data.pin !== userState.currentUser.pin ||
+        +data.pin !== userState.currentUser.pin ||
         data.user !== userState.currentUser.user
       ) {
         return "Incorrect information. Please try again.";
