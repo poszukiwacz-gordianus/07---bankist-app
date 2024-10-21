@@ -9,12 +9,14 @@ export default function Button({
   onClick,
   className,
   type = "button",
+  disabled = false,
 }) {
   return (
     <button
       type={type}
       className={`${className} hover:text-white lg:hover:bg-slate-200 lg:hover:text-black`}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>

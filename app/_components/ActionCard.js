@@ -11,12 +11,14 @@ function ActionCard({ children, title, type, className }) {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({});
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [shouldReset, setShouldReset] = useState(false);
 
   const reset = () => {
     setError("");
     setShouldReset(true);
     setFormData({});
+    setIsLoading(false);
   };
 
   const ref = useCloseOnOutsideInteraction(() => {
@@ -30,8 +32,12 @@ function ActionCard({ children, title, type, className }) {
     let validationError = validateFormData(type, formData, state);
 
     if (!validationError) {
-      dispatch({ type, payload: formData });
-      reset();
+      setIsLoading(true);
+      const intervalID = setInterval(() => {
+        dispatch({ type, payload: formData });
+        reset();
+        clearInterval(intervalID);
+      }, 2000);
     } else {
       setError(validationError);
     }
@@ -50,7 +56,7 @@ function ActionCard({ children, title, type, className }) {
 
   return (
     <ActionContext.Provider
-      value={{ error, handleInputChange, shouldReset, resetInputs }}
+      value={{ isLoading, error, handleInputChange, shouldReset, resetInputs }}
     >
       <div
         className={`${className} overflow-hidden rounded-lg p-6 shadow-md transition-all duration-500 ease-in-out lg:px-10 lg:py-6 ${
@@ -84,7 +90,7 @@ function ActionCard({ children, title, type, className }) {
 
 function Input({ type, label, name }) {
   const [inputValue, setInputValue] = useState("");
-  const { handleInputChange, shouldReset, resetInputs } =
+  const { handleInputChange, shouldReset, resetInputs, isLoading } =
     useContext(ActionContext);
 
   const handleChange = (e) => {
@@ -110,6 +116,7 @@ function Input({ type, label, name }) {
         placeholder={label}
         onWheel={(e) => e.target.blur()}
         onChange={handleChange}
+        disabled={isLoading}
         required
       />
       <label className="hidden py-2 text-center text-sm lg:block">
@@ -120,10 +127,12 @@ function Input({ type, label, name }) {
 }
 
 function ActionButton() {
+  const { isLoading } = useContext(ActionContext);
   return (
     <Button
       type="submit"
       className="md:self-end lg:self-start lg:rounded-lg lg:bg-white lg:px-1 lg:py-[0.38rem]"
+      disabled={isLoading}
     />
   );
 }

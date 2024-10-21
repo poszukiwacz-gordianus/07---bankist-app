@@ -8,11 +8,12 @@ import { sortMovements } from "../_lib/helpers";
 export default function Account({ currentUser }) {
   const [sortedData, setSortedData] = useState({
     sortOrder: "dateDesc",
-    items: sortMovements("dateDesc", movements),
+    items: [],
   });
 
   useEffect(() => {
     const movements = currentUser?.movements || [];
+
     setSortedData({
       sortOrder: "dateDesc",
       items: sortMovements("dateDesc", movements),
