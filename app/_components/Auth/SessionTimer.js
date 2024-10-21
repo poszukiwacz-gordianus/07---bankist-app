@@ -33,7 +33,7 @@ export default function SessionTimer() {
   if (!currentUser) return null;
 
   return (
-    <p aria-live="polite">
+    <p>
       You will be logged out in{" "}
       <span className="font-bold">{formatTime(counter)}</span>
     </p>
