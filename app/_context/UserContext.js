@@ -7,8 +7,8 @@ const SESSION_COUNTER = 10 * 60;
 const initialState = {
   accounts: [
     {
-      owner: "Jonas Schmedtmann",
-      user: "js",
+      owner: "Gord The Finder",
+      user: "gtf",
       pin: 1111,
       currency: "EUR",
       locale: "pt-PT",
