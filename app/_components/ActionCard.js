@@ -29,7 +29,7 @@ function ActionCard({ children, title, type, className }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let validationError = validateFormData(type, formData, state);
+    const validationError = validateFormData(type, formData, state);
 
     if (!validationError) {
       setIsLoading(true);

@@ -40,13 +40,21 @@ export function formatCurrency(value, locale, currency) {
 
 export const validateFormData = (actionType, data, userState) => {
   switch (actionType) {
+    case "login":
+      const checkCredentials = (acc, pin, user) => {
+        return acc.some((acc) => acc.pin === pin && acc.user === user);
+      };
+      if (!checkCredentials(userState, +data.pin, data.user))
+        return "Wrong credentials. Please try again.";
+
+      break;
     case "loan":
-      if (!data.amount || Number(data.amount) <= 0)
+      if (!data.amount || +data.amount <= 0)
         return "Loan amount must be greater than 0.";
 
       if (
         !userState?.currentUser?.movements.some(
-          (mov) => mov.amount >= Number(data.amount) * 0.1,
+          (mov) => mov.amount >= +data.amount * 0.1,
         )
       )
         return "We can't grand you this much loan.";
@@ -57,10 +65,10 @@ export const validateFormData = (actionType, data, userState) => {
         (acc, mov) => acc + mov.amount,
         0,
       );
-      if (!data.amount || Number(data.amount) <= 0) {
+      if (!data.amount || +data.amount <= 0) {
         return "Transfer amount must be greater than 0.";
       }
-      if (Number(data.amount) > balance) {
+      if (+data.amount > balance) {
         return "Insufficient balance.";
       }
       const recipient = userState.accounts.find(
