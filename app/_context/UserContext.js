@@ -2,6 +2,7 @@
 import { createContext, useContext, useReducer } from "react";
 
 const UserContext = createContext();
+const SESSION_COUNTER = 10 * 60;
 const initialState = {
   accounts: [
     {
@@ -51,6 +52,7 @@ const initialState = {
         )),
     );
   },
+  sessionCounter: SESSION_COUNTER,
 };
 initialState.balance();
 
@@ -68,12 +70,14 @@ function reducer(state, action) {
         (account) => account.user != state.currentUser.user,
       );
       return {
+        ...state,
         accounts: [...accounts, state.currentUser],
         currentUser: null,
       };
     case "loan":
       return {
         ...state,
+        sessionCounter: SESSION_COUNTER,
         currentUser: {
           ...state.currentUser,
           movements: [
@@ -97,6 +101,8 @@ function reducer(state, action) {
       };
 
       return {
+        ...state,
+        sessionCounter: SESSION_COUNTER,
         accounts: [...x, transfer],
         currentUser: {
           ...state.currentUser,
@@ -115,6 +121,7 @@ function reducer(state, action) {
       );
 
       return {
+        ...state,
         accounts: [...data],
         currentUser: null,
       };

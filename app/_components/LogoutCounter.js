@@ -1,16 +1,26 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { formatTime } from "../_lib/helpers";
 import { useUser } from "../_context/UserContext";
 
 export default function LogoutCounter() {
-  const [counter, setCounter] = useState(10 * 60);
-  const { dispatch } = useUser();
+  const {
+    state: { sessionCounter, currentUser },
+    dispatch,
+  } = useUser();
+
+  const [counter, setCounter] = useState(sessionCounter);
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setCounter(sessionCounter);
+  }, [currentUser, sessionCounter]);
 
   useEffect(() => {
     if (counter > 0) {
-      const timer = setTimeout(() => setCounter((c) => c - 1), 1000);
-      return () => clearTimeout(timer);
+      timerRef.current = setTimeout(() => setCounter((c) => c - 1), 1000);
+      return () => clearTimeout(timerRef.current);
     } else {
       dispatch({ type: "logout" });
     }
