@@ -20,6 +20,7 @@ import TransactionSummary from "./Transactions/TransactionSummary";
 import Button from "./UIComponents/Button";
 import Input from "./UIComponents/Input";
 import Logo from "./UIComponents/Logo";
+import Spinner from "./UIComponents/Spinner";
 
 export {
   Account,
@@ -38,6 +39,7 @@ export {
   AccountHeader,
   Movements,
   Sort,
+  Spinner,
   TransactionItem,
   TransactionSummary,
 };
