@@ -1,5 +1,5 @@
 import LogoutCounter from "./LogoutCounter";
-import TransactionSummary from "./TransactionSummaty";
+import TransactionSummary from "./TransactionSummary";
 
 export default function Footer() {
   return (

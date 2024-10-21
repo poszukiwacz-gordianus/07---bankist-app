@@ -40,10 +40,10 @@ export default function Sort({ arr, onSet }) {
         className="rounded-lg px-2 py-1"
         onChange={handleSort}
       >
-        <option value="asc">Asc</option>
-        <option value="desc">Desc</option>
         <option value="dateAsc">Date Asc</option>
         <option value="dateDesc">Date Desc</option>
+        <option value="asc">Transaction Asc</option>
+        <option value="desc">Transaction Desc</option>
       </select>
     </div>
   );

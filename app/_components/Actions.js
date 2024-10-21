@@ -30,7 +30,7 @@ export default function Actions() {
         type="closeAccount"
       >
         <ActionCard.Input type="text" label="Confirm user" name="user" />
-        <ActionCard.Input type="text" label="Confirm PIN" name="pin" />
+        <ActionCard.Input type="password" label="Confirm PIN" name="pin" />
         <ActionCard.Button />
       </ActionCard>
     </div>

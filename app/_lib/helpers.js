@@ -22,20 +22,24 @@ export function partOfDay() {
 }
 
 export function formatMoney(number) {
-  return (
-    new Intl.NumberFormat("fr-FR", {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 2,
-    }).format(number) + " $"
-  );
+  return new Intl.NumberFormat("fr-FR", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  }).format(number);
 }
 
 export const validateFormData = (actionType, data, userState) => {
   switch (actionType) {
     case "loan":
-      if (!data.amount || Number(data.amount) <= 0) {
+      if (!data.amount || Number(data.amount) <= 0)
         return "Loan amount must be greater than 0.";
-      }
+
+      if (
+        !userState?.currentUser?.movements.some(
+          (mov) => mov.amount >= Number(data.amount) * 0.1,
+        )
+      )
+        return "We can't grand you this much loan.";
       break;
 
     case "transfer":
@@ -55,11 +59,14 @@ export const validateFormData = (actionType, data, userState) => {
       if (!recipient) {
         return "Recipient does not exist.";
       }
+
+      if (userState.currentUser.user === data.recipientUser)
+        return "You cannot transfer many to yourself!";
       break;
 
     case "closeAccount":
       if (
-        data.pin !== userState.currentUser.pin &&
+        data.pin !== userState.currentUser.pin ||
         data.user !== userState.currentUser.user
       ) {
         return "Incorrect information. Please try again.";

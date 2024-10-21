@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function Input({ name, onData, placeholder }) {
+export default function Input({ type = "text", name, onData, placeholder }) {
   const [input, setInput] = useState("");
 
   const handleChange = (e) => {
@@ -15,11 +15,13 @@ export default function Input({ name, onData, placeholder }) {
 
   return (
     <input
+      type={type}
       placeholder={placeholder}
       value={input}
       onChange={handleChange}
       name={name}
-      className="rounded-full bg-white py-3 text-center sm:w-20 sm:py-1 sm:text-sm"
+      className="rounded-full bg-white py-3 text-center sm:w-20 sm:py-1 sm:text-sm md:w-32"
+      required
     />
   );
 }

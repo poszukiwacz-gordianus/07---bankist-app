@@ -62,7 +62,7 @@ function ActionCard({ children, title, type, className }) {
         ref={ref}
       >
         <h4
-          className={`mb-3 ${isOpen || "-translate-y-2"} text-center text-base font-medium transition-all duration-500 sm:text-base md:-translate-y-0 md:text-left lg:mb-4`}
+          className={`mb-3 ${isOpen || "-translate-y-1"} text-center text-base font-medium transition-all duration-500 sm:text-base md:-translate-y-0 md:text-left lg:mb-4`}
         >
           {title}
         </h4>

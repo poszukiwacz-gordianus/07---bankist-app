@@ -17,7 +17,11 @@ export default function TransactionSummary() {
   const withdrawalsTotal = Math.abs(
     calculateTotal(currentUser?.movements, (mov) => mov.amount < 0),
   );
-  const interest = (depositTotal * currentUser?.interestRate) / 100;
+  const interest = currentUser?.movements
+    .filter((mov) => mov.amount > 0)
+    .map((deposit) => (deposit.amount * currentUser?.interestRate) / 100)
+    .filter((int) => int >= 1)
+    .reduce((acc, int) => acc + int, 0);
 
   return (
     <div className="flex flex-col gap-2 md:flex-row">

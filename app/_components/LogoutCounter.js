@@ -14,7 +14,7 @@ export default function LogoutCounter() {
     } else {
       dispatch({ type: "logout" });
     }
-  }, [counter]);
+  }, [counter, dispatch]);
 
   return (
     <p>

@@ -6,67 +6,53 @@ const initialState = {
   accounts: [
     {
       owner: "Jonas Schmedtmann",
-      movements: [
-        { date: "10/01/2024", amount: 5000 },
-        { date: "10/02/2024", amount: 3400 },
-        { date: "10/03/2024", amount: -150 },
-        { date: "10/04/2024", amount: -790 },
-        { date: "10/05/2024", amount: -3210 },
-        { date: "10/06/2024", amount: -1000 },
-        { date: "10/07/2024", amount: 8500 },
-        { date: "10/08/2024", amount: -30 },
-        { date: "10/17/2024", amount: 30 },
-      ],
-      interestRate: 1.2, // %
       user: "js",
       pin: 1111,
+      currency: "EUR",
+      locale: "pt-PT",
+      interestRate: 1.2,
+      movements: [
+        { date: "2024-07-30T10:30:10.456Z", amount: 200 },
+        { date: "2024-07-26T12:01:20.894Z", amount: 455.23 },
+        { date: "2024-07-25T17:55:25.234Z", amount: -306.5 },
+        { date: "2024-07-20T13:45:50.678Z", amount: 25000 },
+        { date: "2024-07-15T09:05:15.012Z", amount: -642.21 },
+        { date: "2024-07-10T14:35:00.789Z", amount: -133.9 },
+        { date: "2024-07-05T11:25:45.456Z", amount: 79.97 },
+        { date: "2024-07-01T08:15:30.123Z", amount: 1300 },
+      ],
     },
     {
       owner: "Jessica Davis",
-      movements: [
-        { date: "01/10/2024", amount: 200 },
-        { date: "02/10/2024", amount: 1000 },
-        { date: "03/10/2024", amount: -1500 },
-        { date: "04/10/2024", amount: -90 },
-        { date: "05/10/2024", amount: 210 },
-        { date: "06/10/2024", amount: -1000 },
-        { date: "07/10/2024", amount: 500 },
-        { date: "08/10/2024", amount: -300 },
-      ],
-      interestRate: 1.5,
       user: "jd",
       pin: 2222,
-    },
-    {
-      owner: "Steven Thomas Williams",
+      currency: "USD",
+      locale: "en-US",
+      interestRate: 1.5,
       movements: [
-        { date: "01/10/2024", amount: 200 },
-        { date: "02/10/2024", amount: -200 },
-        { date: "03/10/2024", amount: 340 },
-        { date: "04/10/2024", amount: -300 },
-        { date: "05/10/2024", amount: -20 },
-        { date: "06/10/2024", amount: 50 },
-        { date: "07/10/2024", amount: 400 },
-        { date: "08/10/2024", amount: -460 },
+        { date: "2024-08-10T15:00:00.000Z", amount: 5000 },
+        { date: "2024-07-10T14:00:00.000Z", amount: 3400 },
+        { date: "2024-06-10T13:00:00.000Z", amount: -150 },
+        { date: "2024-05-10T12:00:00.000Z", amount: -790 },
+        { date: "2024-04-10T11:00:00.000Z", amount: -3210 },
+        { date: "2024-03-10T10:00:00.000Z", amount: -1000 },
+        { date: "2024-02-10T09:00:00.000Z", amount: 8500 },
+        { date: "2024-01-10T08:00:00.000Z", amount: -30 },
       ],
-      interestRate: 0.7,
-      pin: 3333,
-    },
-    {
-      owner: "Sarah Smith",
-      movements: [
-        { date: "01/10/2024", amount: 430 },
-        { date: "02/10/2024", amount: 1000 },
-        { date: "03/10/2024", amount: 700 },
-        { date: "04/10/2024", amount: 50 },
-        { date: "05/10/2024", amount: 90 },
-      ],
-      interestRate: 1,
-      pin: 4444,
     },
   ],
   currentUser: null,
+  balance() {
+    return this.accounts.map(
+      (account) =>
+        (account.balance = account.movements.reduce(
+          (acc, mov) => acc + mov.amount,
+          0,
+        )),
+    );
+  },
 };
+initialState.balance();
 
 function reducer(state, action) {
   switch (action.type) {
@@ -91,7 +77,7 @@ function reducer(state, action) {
         currentUser: {
           ...state.currentUser,
           movements: [
-            { date: new Date(), amount: Number(action.payload.amount) },
+            { date: new Date(), amount: Math.floor(action.payload.amount) },
             ...state.currentUser.movements,
           ],
         },

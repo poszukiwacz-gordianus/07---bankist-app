@@ -26,7 +26,12 @@ export default function Login() {
       onSubmit={handleSubmit}
     >
       <Input placeholder="user" name="user" onData={setFormData} />
-      <Input placeholder="PIN" name="pin" onData={setFormData} />
+      <Input
+        placeholder="PIN"
+        name="pin"
+        type="password"
+        onData={setFormData}
+      />
       <Button type="submit" className="self-center">
         <HiArrowLongRight className="text-4xl" />
       </Button>
