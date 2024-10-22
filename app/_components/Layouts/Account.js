@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Sort, AccountHeader, ActionList, Movements } from "../Components";
 import { sortMovements } from "@/app/_lib/helpers";
 
 export default function Account({ currentUser }) {
   const [sortOrder, setSortOrder] = useState("dateDesc");
+  const [prevMov, setPrevMov] = useState(currentUser?.movements || []);
 
   const sortedData = useMemo(() => {
     const movements = currentUser?.movements || [];
@@ -14,6 +15,15 @@ export default function Account({ currentUser }) {
       items: sortMovements(sortOrder, movements),
     };
   }, [currentUser, sortOrder]);
+
+  // Use useEffect to detect changes in movements
+  useEffect(() => {
+    const movements = currentUser?.movements || [];
+    if (movements.length > prevMov.length) {
+      setPrevMov(movements);
+      setSortOrder("dateDesc"); // Reset sort order when new movement is added
+    }
+  }, [currentUser, prevMov]);
 
   const handleSort = (e) =>
     e.target.value !== sortOrder && setSortOrder(e.target.value);
