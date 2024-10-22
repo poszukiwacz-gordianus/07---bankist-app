@@ -13,7 +13,7 @@ export default function Movements({ sortedData }) {
   if (!sortedData?.items) return <p>No transactions available.</p>;
 
   return (
-    <div className="hide-scrollbar-x flex h-56 flex-col gap-1 overflow-scroll rounded-lg md:h-[545px] md:gap-[0.1rem] lg:h-[505px]">
+    <div className="hide-scrollbar-x flex h-64 flex-col gap-[0.1rem] overflow-scroll rounded-lg md:h-[545px] lg:h-[505px]">
       {sortedData?.items.map((mov, i) => {
         const { date: movementDate, amount } = mov;
         const date = new Date(mov.date);

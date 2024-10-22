@@ -7,8 +7,10 @@ const sortOptions = [
 
 export default function Sort({ sortOrder, onSort }) {
   return (
-    <div className="mt-2">
-      <label htmlFor="sort">Sort by: </label>
+    <div className="mt-6 sm:mt-4">
+      <label htmlFor="sort" className="text-lg">
+        Sort by:
+      </label>
       <select
         name="sort"
         id="sort"
